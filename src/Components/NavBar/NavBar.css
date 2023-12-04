@@ -1,0 +1,12 @@
+.nav-container{
+    width: 30%;
+}
+
+#navbarScroll {
+    justify-content: flex-end;
+}
+
+.bg-body-tertiary{
+    background-color:#212529 !important ;
+}
+
