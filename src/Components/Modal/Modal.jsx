@@ -11,8 +11,7 @@ const Modal = (props) => {
     const initialValues = {
         name: props.item.name || '',
         code: props.item.code || '',
-        description: props.item.description || '',
-        image: props.item.image || '',
+        // description: props.item.description || '',
         stock: props.item.stock || '',
         price: props.item.price || ''
     }
@@ -23,11 +22,10 @@ const Modal = (props) => {
             .max(25, 'Nombre demasiado largo')
             .required('Este campo es obligatorio.'),
         code: Yup.number().required('Este campo es obligatorio'),
-        description: Yup.string()
-            .min(10, 'Descripción demasiado corta')
-            .max(150, 'Descripción demasiado larga')
-            .required('Este campo es obligatorio.'),
-        image: Yup.string().required('Este campo es obligatorio'),
+        // description: Yup.string()
+        //     .min(10, 'Descripción demasiado corta')
+        //     .max(150, 'Descripción demasiado larga')
+        //     .required('Este campo es obligatorio.'),
         stock: Yup.number().required('Este campo es obligatorio'),
         price: Yup.number().required('Este campo es obligatorio')
     })
@@ -73,22 +71,14 @@ const Modal = (props) => {
                                     <ErrorMessage name='code' component='div'></ErrorMessage>
                                 )}
                             </FormBs.Group>
-                            <FormBs.Group className="mb-3">
+                            {/* <FormBs.Group className="mb-3">
                                 <label htmlFor='description'>Descripción</label>
                                 <Field id='description' type='text' placeholder='Remera cuello redondo talle S de algodón' name='description'
                                 className='form-control field-input' style={{ color: 'black' }} onChange={handleChange} />
                                 {errors.description && touched.description && (
                                     <ErrorMessage name='description' component='div'></ErrorMessage>
                                 )}
-                            </FormBs.Group>
-                            <FormBs.Group className="mb-3">
-                                <label htmlFor='image'>Imagen</label>
-                                <Field id='image' type='text' placeholder='URL de la imagen' name='image'
-                                className='form-control field-input' style={{ color: 'black' }} onChange={handleChange} />
-                                {errors.image && touched.image && (
-                                    <ErrorMessage name='image' component='div'></ErrorMessage>
-                                )}
-                            </FormBs.Group>
+                            </FormBs.Group> */}
                             <FormBs.Group className="mb-3">
                                 <label htmlFor='stock'>Stock disponible</label>
                                 <Field id='stock' type='text' placeholder='25' name='stock'

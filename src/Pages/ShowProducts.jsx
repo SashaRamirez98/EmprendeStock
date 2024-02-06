@@ -4,7 +4,7 @@ import Table from "../Components/Table/Table";
 
 const ShowProducts = () => {
 
-    const [items, setItems] = useState([])
+    const [items, setItems] = useState([]);
 
     useEffect(() => {
         axiosInstance.get('/')
@@ -47,7 +47,6 @@ const ShowProducts = () => {
               console.log(r);
               const itemsUpload = items.filter(item => item.id !== id);
               console.log(itemsUpload);
-              // Actualiza el estado local directamente sin dispatch
               setItems(itemsUpload);
             }
           })
