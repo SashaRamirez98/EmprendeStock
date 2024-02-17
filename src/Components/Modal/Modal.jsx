@@ -7,11 +7,9 @@ import FormBs from 'react-bootstrap/Form';
 import './Modal.css'
 
 const Modal = (props) => {
-
     const initialValues = {
         name: props.item.name || '',
         code: props.item.code || '',
-        // description: props.item.description || '',
         stock: props.item.stock || '',
         price: props.item.price || ''
     }
@@ -22,15 +20,11 @@ const Modal = (props) => {
             .max(25, 'Nombre demasiado largo')
             .required('Este campo es obligatorio.'),
         code: Yup.number().required('Este campo es obligatorio'),
-        // description: Yup.string()
-        //     .min(10, 'Descripción demasiado corta')
-        //     .max(150, 'Descripción demasiado larga')
-        //     .required('Este campo es obligatorio.'),
         stock: Yup.number().required('Este campo es obligatorio'),
         price: Yup.number().required('Este campo es obligatorio')
     })
 
-    return(
+    return (
         <ModalBs
             {...props}
             size="lg"
@@ -46,64 +40,48 @@ const Modal = (props) => {
                 <Formik
                     initialValues={initialValues}
                     validationSchema={validationSchema}
-                    onSubmit={ async (values, { setSubmitting }) => {
-                        console.log(values);
-                        await props.onSubmit(props.item.id, values)
-                        setSubmitting(false);
-                        props.onHide()
+                    onSubmit={async (values, { setSubmitting }) => {
+                        try {
+                            await props.onSubmit(props.item.id, values);
+                            props.onHide();
+                        } catch (error) {
+                            console.error('Error al editar producto:', error);
+                        } finally {
+                            setSubmitting(false);
+                        }
                     }}
                 >
-                    {({ values, errors, isSubmitting, touched, handleChange }) => (
+
+                    {({ isSubmitting }) => (
                         <Form>
                             <FormBs.Group className="mb-3">
                                 <label htmlFor='name'>Nombre del producto</label>
                                 <Field id='name' type='text' placeholder='Remera Blanca' name='name'
-                                className='form-control field-input' style={{ color: 'black' }} onChange={handleChange} />
-                                {errors.name && touched.name && (
-                                    <ErrorMessage name='name' component='div'></ErrorMessage>
-                                )}
+                                    className='form-control field-input' style={{ color: 'black' }} />
+                                <ErrorMessage name='name' component='div' />
                             </FormBs.Group>
                             <FormBs.Group className="mb-3">
                                 <label htmlFor='code'>Código</label>
                                 <Field id='code' type='text' placeholder='1234' name='code'
-                                className='form-control field-input' style={{ color: 'black' }} onChange={handleChange} />
-                                {errors.code && touched.code && (
-                                    <ErrorMessage name='code' component='div'></ErrorMessage>
-                                )}
+                                    className='form-control field-input' style={{ color: 'black' }} />
+                                <ErrorMessage name='code' component='div' />
                             </FormBs.Group>
-                            {/* <FormBs.Group className="mb-3">
-                                <label htmlFor='description'>Descripción</label>
-                                <Field id='description' type='text' placeholder='Remera cuello redondo talle S de algodón' name='description'
-                                className='form-control field-input' style={{ color: 'black' }} onChange={handleChange} />
-                                {errors.description && touched.description && (
-                                    <ErrorMessage name='description' component='div'></ErrorMessage>
-                                )}
-                            </FormBs.Group> */}
                             <FormBs.Group className="mb-3">
                                 <label htmlFor='stock'>Stock disponible</label>
                                 <Field id='stock' type='text' placeholder='25' name='stock'
-                                className='form-control field-input' style={{ color: 'black' }} onChange={handleChange} />
-                                {errors.stock && touched.stock && (
-                                    <ErrorMessage name='stock' component='div'></ErrorMessage>
-                                )}
+                                    className='form-control field-input' style={{ color: 'black' }} />
+                                <ErrorMessage name='stock' component='div' />
                             </FormBs.Group>
                             <FormBs.Group className="mb-3">
                                 <label htmlFor='price'>Precio</label>
                                 <Field id='price' type='text' placeholder='25.000' name='price'
-                                className='form-control field-input' style={{ color: 'black' }} onChange={handleChange} />
-                                {errors.price && touched.price && (
-                                    <ErrorMessage name='price' component='div'></ErrorMessage>
-                                )}
+                                    className='form-control field-input' style={{ color: 'black' }} />
+                                <ErrorMessage name='price' component='div' />
                             </FormBs.Group>
-
                             <Button className="btn btn-primary" type='submit'> Editar Producto </Button>
-                            {
-                                isSubmitting ? (<p>Editando producto...</p>) : null
-                            }
+                            {isSubmitting && (<p>Editando producto...</p>)}
                         </Form>
-                    )
-                    }
-
+                    )}
                 </Formik>
             </ModalBs.Body>
             <ModalBs.Footer className="bg-dark">
