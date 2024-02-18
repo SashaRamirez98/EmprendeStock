@@ -13,7 +13,7 @@ const NavBar = () => {
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container fluid>
                 <Navbar.Brand href="#" style={{ color: 'white'}}>Emprende-Stock</Navbar.Brand>
-                <Navbar.Toggle aria-controls="navbarScroll" />
+                <Navbar.Toggle aria-controls="navbarScroll" className="navbar-toggler" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav
                         className="nav-container justify-content-evenly"

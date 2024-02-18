@@ -86,10 +86,10 @@ const ShowProducts = () => {
 
             // Filtrar los resultados basados en la búsqueda insensible a mayúsculas y minúsculas
             const filteredData = data.filter(
-        (product) =>
-            (product.code && product.code.toLowerCase().includes(searchValueLower)) ||
-            (product.name && product.name.toLowerCase().includes(searchValueLower))
-        );
+                (product) =>
+                    (typeof product.code === 'string' && product.code.toLowerCase().includes(searchValueLower)) ||
+                    (typeof product.name === 'string' && product.name.toLowerCase().includes(searchValueLower))
+            );
 
             setSearchResults(filteredData);
         } catch (error) {
